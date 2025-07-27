@@ -55,7 +55,7 @@
                     method: 'GET',
                     headers: {
                         'Authorization': 'Bearer ' + window.localStorage.getItem("auth_code")
-                    },
+                    }
                 });
                 content = await rawResponse.json();
 
@@ -63,8 +63,30 @@
                 content.items.forEach(element => {
                     document.getElementById("braniSaved").innerHTML += '<tr><td><img style="width: 50px;" src="' + element.track.album.images[0].url + '"></td><td>' + capitalizeFirstLetter(element.track.name) + '</td><td>' + element.track.artists[0].name + '</td><td class="col-durata">' + millisToMinutesAndSeconds(element.track.duration_ms) + '</td><td><button class="btn btn-primary btn-play-song" onclick="playTrack(\'\')"><i class="bi bi-play-fill h4"></i></button></td></tr>';
                 });
+
+                const rR = await fetch('shared/actions/dataSource.php?searchHP=1', {
+                    method: 'POST',
+                    body: JSON.stringify({"items": content.items})
+                });
+                const r = await rR.json();
+                console.log(r);
             })();
-    }
+        }
+        /*
+        document.getElementById("tableHeader").innerHTML = '<tr><th>Img</th><th>Titolo</th><th>Artista</th><th>Durata</th><th>Disponibile</th><th>Aggiungi</th></tr>';
+        var count = 0;
+        resp["items"].forEach(element => {
+            uriElement = encodeURI(JSON.stringify(element)).replace(/\'/g, "\\'").replace("é", "e");
+            if(element["downloaded"]){
+                document.getElementById("risBrani").innerHTML += '<tr><td><img style="width: 50px;" src="' + element["album"]["images"][0]["url"] + '"></td><td>' + element["name"] + '</td><td>' + element["artists"][0]["name"] + '</td><td>' + millisToMinutesAndSeconds(element["duration_ms"]) + '</td><td><button class="btn btn-primary btn-play-song" onclick="playTrack(\''+ uriElement + '\')"><i class="bi bi-play-fill"></i></button></td><td><button class="btn btn-success btn-search-secondary" onclick="addToPlaylistClick(\'' + uriElement + '\')"><i class="bi bi-plus-circle-fill"></i></button></td></tr>';
+            }
+            else{
+                document.getElementById("risBrani").innerHTML += '<tr><td><img style="width: 50px;" src="' + element["album"]["images"][0]["url"] + '"></td><td>' + element["name"] + '</td><td>' + element["artists"][0]["name"] + '</td><td>' + millisToMinutesAndSeconds(element["duration_ms"]) + '</td><td colspan="2"><button class="btn btn-success btn-search-secondary" id="btn-' + count + '" onclick="downloadClick(\'' + uriElement + '\', ' + count + ')"><i class="bi-cloud-download"></span></button></td></tr>';
+            }
+            console.log(element["downloaded"]);
+            count++;
+        });
+        */
     </script>
     <script src="assets/scripts/homeScript.js"></script>
     <?php include 'shared/footer.php'?>

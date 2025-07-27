@@ -105,7 +105,7 @@ def handle_request(d):
         print(resp_data)
 
 
-hostname = "192.168.1.225"
+hostname = "127.0.0.1"
 port = 8000
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -24,7 +24,7 @@
 
             console.log(content);
             window.localStorage.setItem("auth_code", content.access_token)
-            window.location.replace("http://127.0.0.1/synthax/src/home.php")
+            window.location.replace("home.php")
         })();
     </script>
 </body>
