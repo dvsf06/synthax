@@ -34,7 +34,38 @@
         <div class="row g-1 justify-content-evenly">
             <!-- cards go here -->
         </div>
+        <!--
+        <div class="row g-1 justify-content-evenly">
+            
+        </div>
+        -->
     </div>
+    <h1 class="mainTitle" style="text-align: center;">Preferiti da spotify</h1>
+    <table class="table" <?php if($_SESSION["mode"] == "dark-mode"){echo 'data-bs-theme="dark"';}?>>
+        <tbody id="braniSaved">
+        </tbody>
+    </table>
+    <script>
+        var content;
+        var par = document.getElementById('response');
+        if(window.localStorage.getItem("auth_code")){
+            url = 'https://api.spotify.com/v1/me/tracks';
+            (async () => {
+                const rawResponse = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'Bearer ' + window.localStorage.getItem("auth_code")
+                    },
+                });
+                content = await rawResponse.json();
+
+                console.log(content);
+                content.items.forEach(element => {
+                    document.getElementById("braniSaved").innerHTML += '<tr><td><img style="width: 50px;" src="' + element.track.album.images[0].url + '"></td><td>' + capitalizeFirstLetter(element.track.name) + '</td><td>' + element.track.artists[0].name + '</td><td class="col-durata">' + millisToMinutesAndSeconds(element.track.duration_ms) + '</td><td><button class="btn btn-primary btn-play-song" onclick="playTrack(\'\')"><i class="bi bi-play-fill h4"></i></button></td></tr>';
+                });
+            })();
+    }
+    </script>
     <script src="assets/scripts/homeScript.js"></script>
     <?php include 'shared/footer.php'?>
     <script src="assets/scripts/scriptMain.js"></script>

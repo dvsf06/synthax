@@ -91,6 +91,18 @@ def handle_request(d):
         route_song(d["title"], d["artists"])
         conn_sock.send((d["title"] + "\n").encode())
         conn_sock.close()
+    if(d["action"] == "login"):
+        print("login requested")
+        login_url = "https://api.spotify.com/v1/authorize"
+        login_payload = {
+            "client_id": CLIENT_ID,
+            "response_type": "code",
+            "redirect_uri": "http://127.0.0.1/synthax/src/callback.php"
+        }
+        resp = requests.get(login_url, params=login_payload)
+        print(resp.status_code)
+        resp_data = eval(resp.text)
+        print(resp_data)
 
 
 hostname = "192.168.1.225"

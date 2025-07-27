@@ -4,6 +4,14 @@ async function logoutClick(){
     window.location.replace("index.php");
 }
 
+async function loginSpotify(){
+    window.location.replace('https://accounts.spotify.com/authorize?' + 
+        'response_type=code&' +
+        'client_id=7830ddbbbf3043a6a3ebab4273d26205&' +
+        'scope=playlist-read-private user-library-read&' +
+        'redirect_uri=http://127.0.0.1/synthax/src/callback.php');
+}
+
 async function makeLogoutRequest(){
     url = "shared/actions/userHandling.php?logout=1";
     const response = await fetch(url);

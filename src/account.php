@@ -41,6 +41,7 @@
             </div>
             <button class="btn btn-danger" onclick="logoutClick()">Logout</button>
             <button class="btn btn-primary" onclick="toggleLightModeClick()">Attiva dark mode</a>
+            <button class="btn btn-primary" onclick="loginSpotify()">loginSpotify</button>
             <button type="button" class="btn btn-delete-account" data-bs-toggle="modal" data-bs-target="#modalDelete">
                 Elimina account
             </button>
